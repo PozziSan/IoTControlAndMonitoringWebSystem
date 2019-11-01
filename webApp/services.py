@@ -12,31 +12,35 @@ class Mqtt():
         self.loop_started = False
         self.connected = False
 
-        print('teste')
-
     def on_connect(self):
         print('Connected!')
-        self.client.subscribe('aaaa')
+        self.client.subscribe('test_topic')
 
     def on_message(self, client, userdata, msg):
-        print(msg.topic + " " + str(msg.payload))
+        print(f'{msg.topic} {str(msg.payload)}')
 
     def get_client(self):
         return self.client
 
-    def connect(self, connection_address, a, b):
+    def publish_message(self, topic, message):
+        if not self.connected:
+            return
+
+        self.client.publish(topic, message)
+
+    def connect(self, connection_address):
         if self.connected:
             return
-        else:
-            self.client.coonect(connection_address, a, b)
-            self.connected = True
+
+        self.client.connect(connection_address)
+        self.connected = True
 
     def start_loop(self):
         if self.loop_started:
             return
-        else:
-            self.client.loop_start()
-            self.loop_started = True
+
+        self.client.loop_start()
+        self.loop_started = True
 
 
 @lru_cache(maxsize=None)

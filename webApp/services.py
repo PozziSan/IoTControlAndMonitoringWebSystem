@@ -12,11 +12,12 @@ class Mqtt():
         self.loop_started = False
         self.connected = False
 
-    def on_connect(self):
+    def on_connect(self, client, userdata, flags, rc):
         print('Connected!')
-        self.client.subscribe('test_topic')
+        self.subscribe(['test_topic'])
 
-    def on_message(self, client, userdata, msg):
+    @staticmethod
+    def on_message(client, userdata, msg):
         print(f'{msg.topic} {str(msg.payload)}')
 
     def get_client(self):
@@ -35,12 +36,25 @@ class Mqtt():
         self.client.connect(connection_address)
         self.connected = True
 
+    def subscribe(self, topics):
+        if not self.connected:
+            return
+
+        print(topics)
+        for topic in topics:
+            self.client.subscribe(topic)
+            print(f'subscribed in {topic}')
+
     def start_loop(self):
         if self.loop_started:
             return
 
+        if not self.connected:
+            return
+
         self.client.loop_start()
         self.loop_started = True
+        print('started_loop!')
 
 
 @lru_cache(maxsize=None)

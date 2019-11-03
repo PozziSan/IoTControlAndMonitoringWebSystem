@@ -10,7 +10,7 @@ class BaseModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
 
-    def delete(self):
+    def delete(self, **kwargs):
         self.deleted_at = datetime.now()
         self.save()
 
@@ -31,7 +31,7 @@ class Messages(BaseModel):
     message = models.CharField(max_length=255)
     type = models.IntegerField(choices=Status, default=None)
 
-    def save(self):
+    def save(self, **kwargs):
         super(Messages, self).save()
 
         if self.topic == self.DEVICE_ACTIVATION:

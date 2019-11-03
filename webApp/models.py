@@ -19,7 +19,7 @@ class Messages(BaseModel):
     RECEIVED = 0
     SENT = 1
     DEVICE_ACTIVATION = "webApp/actuator/"
-    TemperatureMeasures = "monitoring/DHT11/"
+    TEMPERATURE_MEASURES = "monitoring/DHT11/"
 
     Status = (
         (RECEIVED, 'Received'),
@@ -36,7 +36,7 @@ class Messages(BaseModel):
 
         if self.topic == self.DEVICE_ACTIVATION:
             DeviceActivationLog.objects.create(device=self.message, message=self)
-        elif self.topic == self.TemperatureMeasures:
+        elif self.topic == self.TEMPERATURE_MEASURES:
             TemperatureMeasures.objects.create(
                 device=self.device,
                 measure=self.message,

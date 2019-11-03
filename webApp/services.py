@@ -1,8 +1,12 @@
 import paho.mqtt.client as mqtt
 from functools import lru_cache
 
+from .models import Messages
+
 
 class Mqtt():
+    TOPICS = ['monitoring/DHT11/']
+
     def __init__(self):
         self.client = mqtt.Client()
 
@@ -14,11 +18,20 @@ class Mqtt():
 
     def on_connect(self, client, userdata, flags, rc):
         print('Connected!')
-        self.subscribe(['test_topic'])
+        self.subscribe(self.TOPICS)
 
     @staticmethod
     def on_message(client, userdata, msg):
-        print(f'{msg.topic} {str(msg.payload)}')
+        print(f'{msg.topic} {str(msg.payload)}  device: {userdata}')
+
+        message = Messages(
+            topic=msg.topic,
+            device=msg.info,
+            message=msg.payload.decode('utf-8'),
+            type=Messages.RECEIVED
+        )
+
+        message.save()
 
     def get_client(self):
         return self.client

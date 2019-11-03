@@ -15,9 +15,41 @@ class BaseModel(models.Model):
         self.save()
 
 
+class Messages(BaseModel):
+    RECEIVED = 0
+    SENT = 1
+    DEVICE_ACTIVATION = "webApp/actuator/"
+    TemperatureMeasures = "monitoring/DHT11/"
+
+    Status = (
+        (RECEIVED, 'Received'),
+        (SENT, 'Sent')
+    )
+
+    topic = models.CharField(max_length=255)
+    device = models.CharField(max_length=255)
+    message = models.CharField(max_length=255)
+    type = models.IntegerField(choices=Status, default=None)
+
+    def save(self):
+        super(Messages, self).save()
+
+        if self.topic == self.DEVICE_ACTIVATION:
+            DeviceActivationLog.objects.create(device=self.message, message=self)
+        elif self.topic == self.TemperatureMeasures:
+            TemperatureMeasures.objects.create(
+                device=self.device,
+                measure=self.message,
+                message=self
+            )
+
+
 class TemperatureMeasures(BaseModel):
+    device = models.CharField(max_length=255)
     measure = models.DecimalField(decimal_places=3, max_digits=7)
+    message = models.ForeignKey(Messages, on_delete=models.PROTECT, default=None)
 
 
 class DeviceActivationLog(BaseModel):
     device = models.CharField(max_length=255)
+    message = models.ForeignKey(Messages, on_delete=models.PROTECT, default=None)

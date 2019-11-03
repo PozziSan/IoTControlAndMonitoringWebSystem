@@ -19,7 +19,8 @@ class Messages(BaseModel):
     RECEIVED = 0
     SENT = 1
     DEVICE_ACTIVATION = "webApp/actuator/"
-    TEMPERATURE_MEASURES = "monitoring/DHT11/"
+    TEMPERATURE_MEASURES = "monitoring/DHT11/temperature"
+    HUMIDITY_MEASURES = "monitoring/DHT11/humidity"
 
     Status = (
         (RECEIVED, 'Received'),
@@ -42,9 +43,21 @@ class Messages(BaseModel):
                 measure=self.message,
                 message=self
             )
+        elif self.topic == self.HUMIDITY_MEASURES:
+            HumidityMeasures.objects.create(
+                device=self.device,
+                measure=self.message,
+                message=self
+            )
 
 
 class TemperatureMeasures(BaseModel):
+    device = models.CharField(max_length=255)
+    measure = models.DecimalField(decimal_places=3, max_digits=7)
+    message = models.ForeignKey(Messages, on_delete=models.PROTECT, default=None)
+
+
+class HumidityMeasures(BaseModel):
     device = models.CharField(max_length=255)
     measure = models.DecimalField(decimal_places=3, max_digits=7)
     message = models.ForeignKey(Messages, on_delete=models.PROTECT, default=None)

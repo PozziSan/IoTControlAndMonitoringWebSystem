@@ -5,7 +5,10 @@ from .models import Messages
 
 
 class Mqtt():
-    TOPICS = ['monitoring/DHT11/']
+    TOPICS = [
+        'monitoring/DHT11/temperature',
+        'monitoring/DHT11/humidity'
+    ]
 
     def __init__(self):
         self.client = mqtt.Client()

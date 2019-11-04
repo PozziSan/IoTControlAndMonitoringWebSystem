@@ -45,6 +45,15 @@ class Mqtt():
 
         self.client.publish(topic, message)
 
+        new_message = Messages(
+            topic=topic,
+            device="webApp",
+            message=message,
+            type=Messages.SENT
+        )
+
+        new_message.save()
+
     def connect(self, connection_address):
         if self.connected:
             return

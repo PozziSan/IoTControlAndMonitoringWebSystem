@@ -24,14 +24,32 @@
             </li>
         </ul>
     </li>
-    <li>
-        <a href="/some/url">
-            <i class="fa fa-dashboard"></i> <span>LALALALALALALAL</span>
+        <li class="treeview">
+        <a href="#">
+            <i class="fa fa-line-chart"></i>
+            <span>Charts</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
         </a>
+        <ul class="treeview-menu">
+            <li>
+                <a href="{% url 'temperature_chart' %}">
+                    <i class="fa fa-circle-o"></i>
+                    Temperature Chart
+                </a>
+            </li>
+            <li>
+                <a href="{% url  'humidity_chart' %}">
+                    <i class="fa fa-circle-o"></i>
+                    Humidity Chart
+                </a>
+            </li>
+        </ul>
     </li>
     <li>
-        <a href="/some/url">
-            <i class="fa fa-user"></i> <span>HAHAHAHAH</span>
+        <a href="{% url 'actuators' %}">
+            <i class="fa fa-lightbulb-o"></i> <span>Actuators</span>
         </a>
     </li>
 {% endblock nav_links %}

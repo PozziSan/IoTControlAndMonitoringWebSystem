@@ -1,0 +1,37 @@
+{% extends 'adminlte/lib/_main_sidebar.html' %}
+
+{% block nav_links %}
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-tachometer"></i>
+            <span>Measures</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li>
+                <a href="{% url 'temperature_measures' %}">
+                    <i class="fa fa-circle-o"></i>
+                    Temperature Measures
+                </a>
+            </li>
+            <li>
+                <a href="{% url  'humidity_measures' %}">
+                    <i class="fa fa-circle-o"></i>
+                    Humidity Measures
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="/some/url">
+            <i class="fa fa-dashboard"></i> <span>LALALALALALALAL</span>
+        </a>
+    </li>
+    <li>
+        <a href="/some/url">
+            <i class="fa fa-user"></i> <span>HAHAHAHAH</span>
+        </a>
+    </li>
+{% endblock nav_links %}

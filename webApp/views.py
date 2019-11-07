@@ -65,8 +65,8 @@ def humidity_chart(request):
              humidity_measures]
 
     context = {
-        'temperatures': dumps(humidities),
+        'humidities': dumps(humidities),
         'times': dumps(times)
     }
 
-    return render(request, 'webApp/temperature_chart.html', context)
+    return render(request, 'webApp/humidity_chart.html', context)

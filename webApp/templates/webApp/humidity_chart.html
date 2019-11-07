@@ -10,7 +10,7 @@
                     <h3>Humidity Measures Chart</h3>
                 </div>
                 <div class="box-body">
-                    <canvas id="temperatureChart"></canvas>
+                    <canvas id="humidityChart"></canvas>
                 </div>
             </div>
         </div>
@@ -22,8 +22,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        let ctx = document.getElementById("temperatureChart"),
-            humidity = JSON.parse('{{ humidities|safe }}'),
+        let ctx = document.getElementById("humidityChart"),
+            humidities = JSON.parse('{{ humidities|safe }}'),
             times = JSON.parse('{{ times|safe }}'),
             productsChart = new Chart(ctx, {
                 type: 'line',
@@ -31,7 +31,7 @@
                     labels: times,
                     datasets: [{
                         label: 'Humidities',
-                        data: temperatures,
+                        data: humidities,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

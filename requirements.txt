@@ -1,4 +1,4 @@
-Django==2.2.21
+Django==2.2.22
 django-adminlte2==0.4.1
 paho-mqtt==1.5.0
 psycopg2==2.8.4

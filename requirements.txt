@@ -3,4 +3,4 @@ django-adminlte2==0.4.1
 paho-mqtt==1.5.0
 psycopg2==2.8.4
 pytz==2019.3
-sqlparse==0.3.0
+sqlparse==0.4.4
